@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css" >
+</head>
+<body>
+
+    <div id="scrollBox">
+        <div id="content"></div>
+    </div>
+        
+</body>
+</html>
+
+<script> 
+    let scrollBox = document.getElementById("scrollBox");
+    let itemsArr = [];
+    let count = 0;
+
+    for(let i = 1; i <= 100; i++) {
+        itemsArr.push(`Item ${i}`);
+    }
+
+    function showItems(x, y) {
+        if(y > itemsArr.length) {
+            return;
+        }
+        else {
+            while(x < y) {
+                console.log(itemsArr[x]);
+                let div = document.createElement("div");
+                div.innerText = itemsArr[x];
+                div.setAttribute("class", "scrollBox_item");
+                scrollBox.append(div);
+                x++;
+                count++;
+            }
+        }
+    }
+    showItems(0, 25);
+
+    scrollBox.addEventListener("scroll", () => {
+        //console.log(scrollBox.scrollTop, scrollBox.clientHeight, scrollBox.scrollHeight);
+        if(scrollBox.scrollTop + scrollBox.clientHeight + 10 >= scrollBox.scrollHeight) {
+            console.log(scrollBox.scrollTop + scrollBox.clientHeight, scrollBox.scrollHeight);
+            showItems(count, count+25);
+        }
+    });
+</script>
